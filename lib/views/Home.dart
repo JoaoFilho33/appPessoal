@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../components/LoginScreen.dart';
+import '../components/ContatosScreen.dart';
 import '../components/MenuTabBar.dart';
+import '../components/ToDoListScreen.dart';
+import '../components/WelcomeScreen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -39,15 +41,13 @@ class _HomeState extends State<Home> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    child: LoginScreen(),
+                    child: WelcomeScreen(),       
                   ),
                   Container(
-                    child: Text("Maps", style: TextStyle(color: Colors.black, fontSize: 20)),
-                    margin: EdgeInsets.all(10),
+                    child: TodoListScreen(),
                   ),
                   Container(
-                    child: Text("Todo-list", style: TextStyle(color: Colors.black, fontSize: 20)),
-                    margin: EdgeInsets.all(10),
+                    child: ContatosScreen(),
                   ),
                 ],
               ),

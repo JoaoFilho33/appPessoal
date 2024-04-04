@@ -1,45 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+
+class RegisterScreen extends StatefulWidget {
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isLogin = true;
 
-  Future<void> _login(BuildContext context) async {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email, 
-        password: password,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login realizado com sucesso')),
-      );
-
-      Navigator.pushNamed(context, '/home');
-    } catch(e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Erro ao fazer login: $e')),
-      );
-    }
-  }
-
-  Future<void> _register(BuildContext context) async {
+  void _register(BuildContext context) async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
+        email: email, 
         password: password,
       );
 
@@ -47,7 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
         const SnackBar(content: Text('Cadastro realizado com sucesso')),
       );
 
-      Navigator.pop(context);
+      // Navegar para a tela desejada após o registro bem-sucedido
+      Navigator.pushReplacementNamed(context, '/home');
     } catch(e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Erro ao cadastrar: $e')),
@@ -55,17 +34,11 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _toggleAuthMode() {
-    setState(() {
-      _isLogin = !_isLogin;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_isLogin ? 'Login' : 'Cadastro'),
+        title: Text('Cadastro'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -84,25 +57,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
-                  labelText: 'Senha', 
+                  labelText: 'Senha',
                 ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  _isLogin ? _login(context) : _register(context);
-                },
-                child: Text(_isLogin ? 'Login' : 'Cadastrar')
-              ),
-              const SizedBox(height: 10),
-              TextButton(
-                onPressed: _toggleAuthMode,
-                child: Text(_isLogin ? 'Não tem uma conta? Cadastre-se' : 'Já tem uma conta? Faça login'),
+                  _register(context);
+                }, 
+                child: const Text('Registrar')
               ),
             ],
           ),
         ),
-      ) 
+      ),
     );
   }
 }
