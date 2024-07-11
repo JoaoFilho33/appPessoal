@@ -40,4 +40,6 @@ class ContatosDatabase {
     final db = await database;
     return db.query('contatos');
   }
+
+  
 }

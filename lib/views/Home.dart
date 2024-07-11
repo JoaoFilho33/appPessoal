@@ -3,6 +3,7 @@ import '../components/ContatosScreen.dart';
 import '../components/MenuTabBar.dart';
 import '../components/ToDoListScreen.dart';
 import '../components/WelcomeScreen.dart';
+import '../components/MapsScreen.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -28,14 +29,19 @@ class _HomeState extends State<Home> {
                 ),
                 IconButton(
                   color: Colors.blue,
-                  icon: Icon(Icons.search, size: 30),
+                  icon: Icon(Icons.list, size: 30),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  color: Colors.blue,
+                  icon: Icon(Icons.contact_phone, size: 30),
                   onPressed: () {},
                 ),
                 IconButton(
                   color: Colors.blue,
                   icon: Icon(Icons.map, size: 30),
-                  onPressed: () {},
-                ),
+                  onPressed: () {}, 
+                )
               ],
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -49,6 +55,9 @@ class _HomeState extends State<Home> {
                   Container(
                     child: ContatosScreen(),
                   ),
+                  Container(
+                    child: MapsScreen(),
+                  )
                 ],
               ),
             ),

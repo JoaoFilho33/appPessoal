@@ -13,7 +13,7 @@ class _ContatosScreenState extends State<ContatosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _contacts = ContatosDatabase.getAllContacts(); // Mova a chamada para dentro do método build
+    _contacts = ContatosDatabase.getAllContacts();
 
     return Scaffold(
       appBar: AppBar(

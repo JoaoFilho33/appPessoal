@@ -32,15 +32,15 @@ class ToDoDatabase {
     return await db.query('todolist');
   }
 
-  Future<int> updateTask(Map<String, dynamic> task) async {
-    final Database db = await _database;
-    return await db.update(
-      'todolist',
-      task,
-      where: 'id = ?',
-      whereArgs: [task['id']],
-    );
-  }
+  // Future<int> updateTask(Map<String, dynamic> task) async {
+  //   final Database db = await _database;
+  //   return await db.update(
+  //     'todolist',
+  //     task,
+  //     where: 'id = ?',
+  //     whereArgs: [task['id']],
+  //   );
+  // }
 
   Future<int> deleteTask(int id) async {
     final Database db = await _database;

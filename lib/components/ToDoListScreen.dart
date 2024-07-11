@@ -8,7 +8,7 @@ class TodoListScreen extends StatefulWidget {
 
 class _TodoListScreenState extends State<TodoListScreen> {
   final ToDoDatabase _toDoDatabase = ToDoDatabase();
-  late List<Map<String, dynamic>> tasks;
+  late List<Map<String, dynamic>> tasks; 
 
   TextEditingController taskController = TextEditingController();
 
@@ -28,8 +28,8 @@ class _TodoListScreenState extends State<TodoListScreen> {
     _loadTasks();
   }
 
-  void _removeTask(int index) async {
-    await _toDoDatabase.deleteTask(tasks[index]['id']);
+  void _removeTask(int id) async {
+    await _toDoDatabase.deleteTask(id);
     _loadTasks();
   }
 
@@ -55,11 +55,12 @@ class _TodoListScreenState extends State<TodoListScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: tasks.map((task) {
+                  int taskId = task['id'];
                   return ListTile(
                     title: Text(task['title']),
                     trailing: IconButton(
                       icon: Icon(Icons.delete),
-                      onPressed: () => _removeTask(tasks.indexOf(task)),
+                      onPressed: () => _removeTask(taskId),
                     ),
                   );
                 }).toList(),

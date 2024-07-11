@@ -4,10 +4,11 @@ import 'package:flutter_teste1/views/Home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'components/ToDoListScreen.dart';
 import 'firebase_options.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -26,8 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (content) => LoginScreen(),
-        '/home': (content) => Home(),
+        '/': (context) => LoginScreen(),
+        '/home': (context) => Home(),
         '/TodoListScreen': (context) => TodoListScreen(),
       },
     );

@@ -12,19 +12,26 @@ if (localPropertiesFile.exists()) {
     }
 }
 
-def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+
+def envFile = rootProject.file(".env")
+if (envFile.exists()) {
+    envFile.withReader('UTF-8') { reader ->
+        reader.eachLine { line ->
+            def parts = line.split('=')
+            if (parts.length == 2) {
+                localProperties.setProperty(parts[0], parts[1])
+            }
+        }
+    }
 }
 
-def flutterVersionName = localProperties.getProperty('flutter.versionName')
-if (flutterVersionName == null) {
-    flutterVersionName = '1.0'
-}
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode', '1')
+def flutterVersionName = localProperties.getProperty('flutter.versionName', '1.0')
 
 android {
     namespace "com.example.flutter_teste1"
-    compileSdk flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -41,21 +48,17 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.example.flutter_teste1"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 19
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 20
+        targetSdkVersion 31 // Ou a versão que você está usando
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        //multiDexEnable true
+
+        resValue "string", "maps_api_key", localProperties.getProperty('KEY_MAPS', 'YOUR_DEFAULT_API_KEY')
     }
 
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
     }
