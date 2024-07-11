@@ -1,5 +1,5 @@
 # App pessoal
 
-Contribuidores:
-João de Deus
+Contribuidores: </br>
+João de Deus </br>
 Maria Vitória
